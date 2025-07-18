@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 function NewQuestionForm({ onAddQuestion }) {
   const [formData, setFormData] = useState({
@@ -10,7 +10,14 @@ function NewQuestionForm({ onAddQuestion }) {
     correctIndex: "0",
   });
 
- 
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false; 
+    };
+  }, []);
+  
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData({
